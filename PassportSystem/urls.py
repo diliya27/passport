@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from passport_app import views
+from passport_app.views import PassportOfficerUpdateView 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('',include('passport_app.urls')),
@@ -25,13 +26,20 @@ urlpatterns = [
     path('admin-login/',views.AdminLogin.as_view(),name='admin-login'),
     path('admin-logout/',views.AdminLogout.as_view(),name='admin-logout'),
     path('add_passportofficer/',views.AddPassportOfficerView.as_view(),name='add-passportofficer'),
+    path('list_passportofficer/', views.ListPassportofficerView.as_view(), name='list-passportofficer'),
+    path('update-passportofficer/<int:id>/',PassportOfficerUpdateView.as_view(), name='update-passportofficer'),
+    path('delete_passportofficer/<int:pk>/',views.DeletePassportOfficerView.as_view(),name='delete-passportofficer'),
+
+    path('add_passportverifier/',views.AddVerificationOfficerView.as_view(),name='add-verificationofficer'),
+    path('list_verificationofficer/', views.ListverificationOfficer.as_view(), name='list-verificationofficer'),
+
+
+
+
 
 
 
 
 
     # path('add-officer/', views.AddPassportOfficerView.as_view(), name='add_officer'),
-
-    
-
 ]

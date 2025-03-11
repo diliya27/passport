@@ -125,71 +125,111 @@
                         <span class="fs-5 fw-bold">Passport Admin</span>
                     </a>
                     <hr>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                          <i class="typcn typcn-document-text menu-icon"></i>
-                          <span class="menu-title">Department</span>
-                          <i class="menu-arrow"></i>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard-content" data-bs-toggle="tab">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#system-admin-content" data-bs-toggle="tab">
+                                <i class="fas fa-cogs"></i> System Administration
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add-verificationofficer' %}" data-bs-toggle="tab">
+                                <i class="fas fa-users"></i> Add Verifiaction Officer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#application-monitoring-content" data-bs-toggle="tab">
+                                <i class="fas fa-passport"></i> List Verification Officer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add-passportofficer' %}" data-bs-toggle="tab">
+                                <i class="fas fa-user-tie"></i> Add Passport Officer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'list-passportofficer' %}" data-bs-toggle="tab">
+                                <i class="fas fa-comments"></i> View PassportOfficer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reports-content" data-bs-toggle="tab">
+                                <i class="fas fa-chart-bar"></i> 
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings-content" data-bs-toggle="tab">
+                                <i class="fas fa-sliders-h"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown mx-3 mb-3">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/api/placeholder/50/50" alt="Admin" width="32" height="32" class="rounded-circle me-2">
+                            <strong>Acess</strong>
                         </a>
-                        <div class="collapse" id="ui-basic">
-                          <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{% url 'add_department' %}">Add Department</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="{% url 'manage_department' %}">Department Details</a></li>
-                            <!--<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>-->
-                          </ul>
-                        </div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                          <i class="typcn typcn-film menu-icon"></i>
-                          <span class="menu-title">Employee</span>
-                          <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements">
-                          <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{% url 'add_employee' %}">Add Employee</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'manage_employee' %}">Employee details</a></li>
-                            {% comment %} <li class="nav-item"> <a class="nav-link" href="{% url 'job_rotation_list'%}">Promotion List</a></li> {% endcomment %}
-            
-            
-                          </ul>
-                        </div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#form-elements1" aria-expanded="false" aria-controls="form-element1">
-                          <i class="typcn typcn-document-text menu-icon"></i>
-                          <span class="menu-title">Attendance</span>
-                          <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements1">
-                          <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{% url 'mark_attendance' %}">Mark Attendance</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="{% url 'attendance_records' %}">Attendance Records</a></li>
-                            <!--<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>-->
-                          </ul>
-                        </div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#form-elements2" aria-expanded="false" aria-controls="form-element2">
-                            <i class="typcn typcn-document-text menu-icon"></i>
-                            <span class="menu-title">Jobs</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements2">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'post_job' %}">Job Vacancy</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'job_list' %}">Job List</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'job_user_list' %}">User List</a>
-                                </li> 
-                            </ul>
-                        </div>
-                    </li>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <!-- <li><a class="dropdown-item" href="#">Profile</a></li> -->
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
                     </div>
+                    <form action="{% url 'admin-logout' %}" method="post">
+
+                        <button type="submit" class="btn btn-danger">LOGOUT</button>
+                    </form>
+                    
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Top Navigation Bar -->
+                <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm mb-4">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".sidebar" aria-controls="sidebarMenu" aria-expanded="false">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <span class="navbar-brand">Online Passport System</span>
+                        <div class="d-flex">
+                            <div class="dropdown me-3">
+                                <a href="#" class="btn btn-outline-secondary position-relative" id="notificationsDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notificationsDropdown" style="width: 300px;">
+                                    <h6 class="dropdown-header">Notifications</h6>
+                                    <a class="dropdown-item" href="#">
+                                        <small class="text-muted">3 min ago</small>
+                                        <p class="mb-0">New application submitted</p>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">
+                                        <small class="text-muted">1 hour ago</small>
+                                        <p class="mb-0">System update completed</p>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">See all notifications</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-outline-secondary" id="userDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Logout</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             {% block content %}

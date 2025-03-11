@@ -1,11 +1,11 @@
 
 from django.views.generic import TemplateView,FormView
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
-from passport_app.forms import PassportOfficerForm
-from passport_app.models import PassportOfficer
-from django.views.generic import TemplateView,View
+from passport_app.forms import PassportOfficerForm,VerificationOfficerForm
+from passport_app.models import PassportOfficer,PassportVerifier
+from django.views.generic import TemplateView,View,UpdateView
 from .forms import AdminLoginForm
 from django.urls import reverse_lazy
 from django.urls import reverse
@@ -61,13 +61,67 @@ class AddPassportOfficerView(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        print("Received POST Data:", request.POST.dict())  # Debugging
         form = PassportOfficerForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Passport Officer added successfully!")
-            return redirect("add_passport_officer")  # Redirect to avoid duplicate submissions
+            return redirect("list-passportofficer")  # Redirect to avoid duplicate submissions
+        else:
+            print("Form Errors:", form.errors)  # Debugging
         return render(request, self.template_name, {'form': form})
     
+class ListPassportofficerView(View):
+    template_name="admin/list_And_Manage_passportofficer.html"
+    def get(self,request,*args,**kwargs):
+        qs=PassportOfficer.objects.all()
+        return render(request,self.template_name,{"data":qs})
 
-# class ListPassportofficerView(View):
 
+class PassportOfficerUpdateView(UpdateView):
+    model = PassportOfficer
+    template_name = 'admin/updateofficer.html'  
+    fields = ['name', 'email', 'employee_id', 'phone_number', 'branch_location', 'assigned_region', 'date_of_joining', 'status']  
+    context_object_name = 'passport_officer'  
+    
+    def get_object(self, queryset=None):
+        officer_id = self.kwargs.get('id')  
+        return get_object_or_404(PassportOfficer, id=officer_id)
+    
+    def get_success_url(self):
+        
+        return reverse_lazy('list-passportofficer') 
+
+
+class DeletePassportOfficerView(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        qs=PassportOfficer.objects.get(id=id).delete()
+        return redirect("list-passportofficer")
+    
+
+
+
+class AddVerificationOfficerView(View):
+    template_name = "admin/add_verificationofficer.html"
+
+    def get(self, request):
+        form = VerificationOfficerForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        print("Received POST Data:", request.POST.dict())  # Debugging
+        form = VerificationOfficerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Passport Officer added successfully!")
+            return redirect("list-verificationofficer")  
+        else:
+            print("Form Errors:", form.errors)  # Debugging
+        return render(request, self.template_name, {'form': form})
+    
+class ListverificationOfficer(View):
+    template_name="admin/list_verificationofficer.html"
+    def get(self,request,*args,**kwargs):
+        qs=PassportVerifier.objects.all()
+        return render(request,self.template_name,{"data":qs})
