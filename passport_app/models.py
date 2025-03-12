@@ -18,19 +18,19 @@ class PassportOfficer(models.Model):
     def __str__(self):
         return self.name
 
-# class PassportVerifier(models.Model):
-#     name = models.CharField(max_length=100)
-#     UserNaMe = models.CharField(max_length=100, null=True, blank=True, default="")
-#     PassWoRd = models.CharField(max_length=100, null=True, blank=True, default="")
-#     email = models.EmailField(unique=True)
-#     verifier_id = models.CharField(max_length=10, unique=True)
-#     phone_number = models.CharField(max_length=15,null=True,blank=True)
-#     location=models.CharField(max_length=100,null=True,blank=True)
-#     date_of_joining = models.DateField()
-#     status = models.BooleanField(default=True)
+class PassportVerifier(models.Model):
+    name = models.CharField(max_length=100)
+    UserNaMe = models.CharField(max_length=100, null=True, blank=True, default="")
+    PassWoRd = models.CharField(max_length=100, null=True, blank=True, default="")
+    email = models.EmailField(unique=True)
+    verifier_id = models.CharField(max_length=10, unique=True)
+    phone_number = models.CharField(max_length=15,null=True,blank=True)
+    location=models.CharField(max_length=100,null=True,blank=True)
+    date_of_joining = models.DateField()
+    status = models.BooleanField(default=True)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
 # class PassportApplication(models.Model):
 #     STATUS_CHOICES = [
