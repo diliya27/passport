@@ -26,6 +26,10 @@ urlpatterns = [
     path('admin-logout/',views.AdminLogout.as_view(),name='admin-logout'),
     path('add_passportofficer/',views.AddPassportOfficerView.as_view(),name='add-passportofficer'),
 
+    path('user/',include('user_app.urls')),
+
+
+
 
 
 

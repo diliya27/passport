@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport System Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-height: calc(100vh - 64px);
+            background: linear-gradient(180deg, #1e40af 0%, #1e3a8a 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .notification-dot {
+            top: 3px;
+            right: 3px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Top Navigation Bar -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <img src="/api/placeholder/32/32" alt="Logo" class="h-8 w-8">
+                    <span class="ml-2 text-xl font-bold text-blue-900">Passport Portal</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <i class="fas fa-bell text-gray-600 text-xl"></i>
+                        <span class="absolute notification-dot h-2 w-2 bg-red-500 rounded-full"></span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <img src="/api/placeholder/32/32" alt="Profile" class="h-8 w-8 rounded-full">
+                        <span class="text-gray-700">{{PassportApplication.first_name}}</span>
+                        <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar w-64 text-white">
+            <nav class="mt-6 px-4">
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center px-4 py-3 bg-blue-800 rounded-lg">
+                        <i class="fas fa-home mr-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{% url 'application_form' %}" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg transition">
+                        <i class="fas fa-passport mr-3"></i>
+                        <span>New Application</span>
+                    </a>
+                    {% comment %} <a href="{% url 'application_detail' %}" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg transition">
+                        <i class="fas fa-file-alt mr-3"></i>
+                        <span>Payment</span> {% endcomment %}
+                    </a>
+                    <a href="{% url 'track_service_request' %}" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg transition">
+                        <i class="fas fa-search mr-3"></i>
+                        <span>Track Application</span>
+                    </a>
+                    
+                    </a>
+                    {% comment %} <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg transition">
+                        <i class="fas fa-calendar-alt mr-3"></i>
+                        <span>Appointments</span> {% endcomment %}
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg transition">
+                        <i class="fas fa-user-circle mr-3"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg transition">
+                        <i class="fas fa-question-circle mr-3"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <div class="max-w-7xl mx-auto">
+                <!-- Welcome Banner -->
+                <div class="bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-lg p-6 mb-6 shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h1 class="text-2xl font-bold">Welcome back, John!</h1>
+                            <p class="mt-1">Track your passport applications and manage your profile.</p>
+                        </div>
+                        <button class="bg-white text-blue-900 px-4 py-2 rounded-lg shadow-md hover:bg-blue-50 transition">
+                            New Application
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-clipboard-list text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-gray-500 text-sm">Active Applications</h3>
+                                <p class="text-2xl font-bold text-gray-800">2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-gray-500 text-sm">Completed Applications</h3>
+                                <p class="text-2xl font-bold text-gray-800">3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
+                        <div class="flex items-center">
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-hourglass-half text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-gray-500 text-sm">Pending Verification</h3>
+                                <p class="text-2xl font-bold text-gray-800">1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Status -->
+                <div class="bg-white rounded-lg shadow-md mb-6">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-800">Recent Applications</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">#PAS-4672</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">New Passport</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Mar 01, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            In Progress
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
+                                        <a href="#">View Details</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">#PAS-4671</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Passport Renewal</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Feb 15, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                            Document Verification
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
+                                        <a href="#">View Details</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">#PAS-4665</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">New Passport</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Jan 22, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                            Ready for Pickup
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
+                                        <a href="#">View Details</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Links and Upcoming Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Quick Links -->
+                    <div class="col-span-1 bg-white rounded-lg shadow-md">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-800">Quick Links</h2>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <a href="#" class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                <i class="fas fa-file-pdf text-blue-600 mr-3"></i>
+                                <span class="text-gray-700">Download Application Form</span>
+                            </a>
+                            <a href="#" class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                <i class="fas fa-credit-card text-blue-600 mr-3"></i>
+                                <span class="text-gray-700">Make Payment</span>
+                            </a>
+                            <a href="#" class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                <i class="fas fa-map-marker-alt text-blue-600 mr-3"></i>
+                                <span class="text-gray-700">Find Passport Office</span>
+                            </a>
+                            <a href="#" class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                <i class="fas fa-question-circle text-blue-600 mr-3"></i>
+                                <span class="text-gray-700">FAQ</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Documents Section -->
+                    <div class="col-span-1 bg-white rounded-lg shadow-md">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-800">Required Documents</h2>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-check-circle text-green-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Identification Proof</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-check-circle text-green-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Address Proof</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-times-circle text-red-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Birth Certificate</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-check-circle text-green-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Passport Size Photos</p>
+                                </div>
+                            </div>
+                            <button class="mt-2 w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                                Upload Documents
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Appointment -->
+                    <div class="col-span-1 bg-white rounded-lg shadow-md">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-800">Upcoming Appointment</h2>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-center">
+                                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                                    <i class="fas fa-calendar-check text-blue-600 text-3xl mb-2"></i>
+                                    <h3 class="text-gray-800 font-medium">Biometric Verification</h3>
+                                    <p class="text-gray-600 mt-1">March 15, 2025 at 10:30 AM</p>
+                                    <p class="text-gray-600 mt-1">Passport Office, Central Branch</p>
+                                </div>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mr-2">
+                                    Confirm
+                                </button>
+                                <button class="border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50 transition">
+                                    Reschedule
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // This would be where you'd add JavaScript for interactive functionality
+    </script>
+</body>
+</html>
