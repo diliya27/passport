@@ -34,10 +34,15 @@ urlpatterns = [
     path('list_verificationofficer/', views.ListverificationOfficer.as_view(), name='list-verificationofficer'),
 
 
+      path('ListManagePassport_application/', views.ListManagePassport_application, name='ListManagePassport_application'),
+    
+
+
 
 
 
     path('user/',include('user_app.urls')),
+    path('verification/', include('verification_app.urls')), 
 
 
 

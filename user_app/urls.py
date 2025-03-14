@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path,include
 from user_app import views
 urlpatterns = [
- path('register/',views.registrationview,name='register'),
+ path('register_user/',views.registrationview,name='register_user'),
  path('login/',views.loginview,name='login'),
  path('logout/', views.logoutview, name='logout'),
  path('dashboard/',views.dashboard_view,name='dashboard'),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('payment_status/', views.payment_callback, name='payment_callback'),
     path('application_detail/<int:application_id>/', views.application_detail, name='application_detail'),
     path('track/', views.track_service_request, name='track_service_request'),
+      path('logout/', views.user_logout, name='logout'),
     
     
 

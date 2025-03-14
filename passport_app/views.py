@@ -71,16 +71,21 @@ class AddPassportOfficerView(View):
             print("Form Errors:", form.errors)  # Debugging
         return render(request, self.template_name, {'form': form})
     
-<<<<<<< HEAD
+class ListPassportofficerView(View):
+    template_name = "admin/list_And_Manage_passportofficer.html"
+
+    def get(self, request, *args, **kwargs):
+        qs = PassportOfficer.objects.all()
+        return render(request, self.template_name, {"data": qs})
     
     
-=======
+
 class ListPassportofficerView(View):
     template_name="admin/list_And_Manage_passportofficer.html"
     def get(self,request,*args,**kwargs):
         qs=PassportOfficer.objects.all()
         return render(request,self.template_name,{"data":qs})
->>>>>>> 1276e743a0e4a190d9c34789b5de987d28032aad
+ 
 
 
 class PassportOfficerUpdateView(UpdateView):
@@ -130,3 +135,10 @@ class ListverificationOfficer(View):
     def get(self,request,*args,**kwargs):
         qs=PassportVerifier.objects.all()
         return render(request,self.template_name,{"data":qs})
+    
+
+from user_app.models import PassportApplication
+
+def ListManagePassport_application(request):
+    data = PassportApplication.objects.all()
+    return render(request, "admin/List_and_Update_passportapplication.html",{"data": data})

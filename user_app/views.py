@@ -258,6 +258,7 @@ def payment_callback(request):
 
             application = payment.application
             application.payment_status = 'Completed'
+            application.application_status = 'Processing'
             application.save()
 
             messages.success(request, "Payment successful!")
@@ -309,75 +310,11 @@ def track_service_request(request):
     }
     return render(request, 'track_service_request.html', context)
 
-
-
-
-#     if request.method == 'POST':
-#         passport_type = request.POST.get('passport_type')
-#         expedited_service = request.POST.get('expedited_service')
-
-#         # Calculate Fee
-#         application_fee = 14500  # Regular Passport (36 pages)
-#         if passport_type == '60_pages':
-#             application_fee = 17500  # Regular Passport (60 pages)
-
-#         if expedited_service == 'yes':
-#             application_fee += 6000  # Expedited service fee
-
-#         currency = 'INR'
-
-#         # Create Razorpay Order
-#         razorpay_order = razorpay_client.order.create({
-#             'amount': application_fee,
-#             'currency': currency,
-#             'payment_capture': '1'
-#         })
-
-#         application.razorpay_order_id = razorpay_order['id']
-#         application.save()
-
-#         context = {
-#             'application': application,
-#             'amount': application_fee,
-#             'razorpay_order_id': razorpay_order['id'],
-#             'razorpay_key_id': settings.RAZORPAY_KEY_ID,
-#             'currency': currency,
-#         }
-#         return render(request, 'payment_page.html', context)
-
-#     return render(request, 'payment_page.html')
-
-
-
-# @csrf_exempt
-# def payment_callback(request):
-#     if request.method == "POST":
-#         data = request.POST
-#         razorpay_order_id = data.get('razorpay_order_id')
-#         razorpay_payment_id = data.get('razorpay_payment_id')
-#         razorpay_signature = data.get('razorpay_signature')
-
-#         try:
-#             # Verify payment signature
-#             razorpay_client.utility.verify_payment_signature({
-#                 'razorpay_order_id': razorpay_order_id,
-#                 'razorpay_payment_id': razorpay_payment_id,
-#                 'razorpay_signature': razorpay_signature
-#             })
-            
-#             # Update the application status
-#             application = PassportApplication.objects.get(razorpay_order_id=razorpay_order_id)
-#             application.payment_status = 'Completed'
-#             application.save()
-
-#             messages.success(request, "Payment successful! Your application has been submitted.")
-#             return redirect('payment_method', application_id=application.id)
-        
-#         except razorpay.errors.SignatureVerificationError:
-#             messages.error(request, "Payment failed! Please try again.")
-#             return redirect('payment_method', application_id=application.id)
-    
-#     return redirect('payment_method')
+from django.contrib.auth import logout
+def user_logout(request):
+    logout(request)  
+    messages.success(request, "You have been successfully logged out.")
+    return redirect('login')  # Redirect to your login page or homepage
 
 
 
@@ -386,122 +323,4 @@ def track_service_request(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# views.py
-
-# import razorpay
-# from django.conf import settings
-# from django.shortcuts import render, redirect
-# from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
-# from django.contrib import messages
-# from .models import PassportApplication
-
-# # Initialize Razorpay client
-# razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-
-# def payment_page(request):
-#     if request.method == 'POST':
-#         # Extract form data
-#         payment_method = request.POST.getlist('payment_method')
-#         expedited_service = request.POST.get('expedited_service') == 'yes'
-#         page_count = request.POST.get('page_count')
-        
-#         # Set base price based on page count
-#         if page_count == '36':
-#             base_price = 145.00
-#         elif page_count == '60':
-#             base_price = 175.00
-#         else:
-#             base_price = 0.0  # Default case (if no selection is made)
-        
-#         # Add expedited charge if selected
-#         if expedited_service:
-#             total_amount = base_price + 60.00
-#         else:
-#             total_amount = base_price
-        
-#         # Convert to paisa for Razorpay (₹1 = 100 paisa)
-#         total_amount_paisa = int(total_amount * 100)
-
-#         # Create Razorpay Order
-#         try:
-#             razorpay_order = razorpay_client.order.create({
-#                 'amount': total_amount_paisa,
-#                 'currency': 'INR',
-#                 'payment_capture': '1'
-#             })
-#         except Exception as e:
-#             messages.error(request, "Failed to create payment order. Please try again.")
-#             return redirect('payment_page')
-        
-#         # Save application details to the database
-#         application = PassportApplication(
-#             payment_method=payment_method,
-#             expedited_service=expedited_service,
-#             total_amount=total_amount,
-#             razorpay_order_id=razorpay_order['id']
-#         )
-#         application.save()
-        
-#         # Prepare context data for the payment page
-#         context = {
-#             'application': application,
-#             'razorpay_order_id': razorpay_order['id'],
-#             'razorpay_key_id': settings.RAZORPAY_KEY_ID,
-#             'total_amount': total_amount_paisa,
-#             'currency': 'INR',
-#         }
-        
-#         return render(request, 'payment_page.html', context)
-    
-#     return render(request, 'payment_page.html')
-
-
-# @csrf_exempt
-# def payment_callback(request):
-#     if request.method == "POST":
-#         data = request.POST
-#         razorpay_order_id = data.get('razorpay_order_id')
-#         razorpay_payment_id = data.get('razorpay_payment_id')
-#         razorpay_signature = data.get('razorpay_signature')
-
-#         try:
-#             # Verify payment signature
-#             razorpay_client.utility.verify_payment_signature({
-#                 'razorpay_order_id': razorpay_order_id,
-#                 'razorpay_payment_id': razorpay_payment_id,
-#                 'razorpay_signature': razorpay_signature
-#             })
-            
-#             # Update the application status
-#             application = PassportApplication.objects.get(razorpay_order_id=razorpay_order_id)
-#             application.payment_status = 'Completed'
-#             application.save()
-
-#             messages.success(request, "Payment successful! Your application has been submitted.")
-#             return redirect('payment_success', application.id)
-        
-#         except razorpay.errors.SignatureVerificationError:
-#             messages.error(request, "Payment verification failed. Please try again.")
-#             return redirect('payment_page')
-    
-#     return redirect('payment_page')
 

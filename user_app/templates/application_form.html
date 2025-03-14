@@ -1,3 +1,5 @@
+{% extends 'dashboard.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -893,20 +895,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Additional Documents Section -->
-                <div class="form-row">
-                    <div class="form-group full">
-                        <label for="additionalDocs">Other Documents (optional)</label>
-                        <textarea id="additionalDocs" name="additional_documents" rows="3" placeholder="Please list any additional documents you plan to provide"></textarea>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <!-- 8. Payment Details -->
-            <div class="form-section">
+
+                     <!-- 8. Payment Details -->
+            <div class="form-section ">
                 <div class="section-header">
                     <div class="section-icon">8</div>
                     <h2 class="section-title">Payment Details</h2>
@@ -1023,6 +1014,15 @@
                 {% endif %}
             </div>
             
+
+                </div>
+                
+                <!-- Additional Documents Section -->
+               
+            </div>
+            
+            
+           
         </form>
         
         <footer>
@@ -1101,7 +1101,10 @@
                 reader.readAsDataURL(fileInput.files[0]);
             }
         });
+       
+        
     </script>
     
 </body>
 </html>
+{% endblock %}

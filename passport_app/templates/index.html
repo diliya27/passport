@@ -292,7 +292,7 @@
                 </div>
                 
                 <!-- Passport Officer Module -->
-                <div class="col-md-6 col-lg-3 mb-4">
+                {% comment %} <div class="col-md-6 col-lg-3 mb-4">
                     <div class="module-card card">
                         <div class="card-header">
                             <i class="fas fa-id-card me-2"></i>Passport Officer
@@ -307,7 +307,7 @@
                         </div>
                     </div>
                 </div>
-                
+                 {% endcomment %}
                 <!-- Verification Officer Module -->
                 <div class="col-md-6 col-lg-3 mb-4">
                     <div class="module-card card">
@@ -320,7 +320,7 @@
                             </div>
                             <h5 class="card-title">Verify Documents</h5>
                             <p class="card-text">Validate applicant's documents and personal information.</p>
-                            <a href="#verification-login" class="btn btn-primary mt-3">Access Portal</a>
+                            <a href="{% url 'login_verifer' %}" class="btn btn-primary mt-3">Access Portal</a>
                         </div>
                     </div>
                 </div>
@@ -337,7 +337,7 @@
                             </div>
                             <h5 class="card-title">Apply for Passport</h5>
                             <p class="card-text">Submit your application and track its progress online.</p>
-                            <a href="{% url 'register' %}" class="btn btn-primary mt-3">Access Portal</a>
+                            <a href="{% url 'register_user' %}" class="btn btn-primary mt-3">Access Portal</a>
                         </div>
                     </div>
                 </div>
